@@ -33,15 +33,15 @@ Trigger swipe right and swipe left however you want...
 
 Unswipe the cards however you want...
 
-<img src="[https://github.com/appinioGmbH/flutter_packages/blob/main/assets/swiper/unswipe.gif?raw=true](https://user-images.githubusercontent.com/3786627/225915487-b41d6258-0a2d-4da0-821c-0c62564413ab.gif)" height="250" />
+<img src="https://user-images.githubusercontent.com/3786627/225915487-b41d6258-0a2d-4da0-821c-0c62564413ab.gif" height="250" />
 
 Customize the angle...
 
-<img src="[https://github.com/appinioGmbH/flutter_packages/blob/main/assets/swiper/angle.gif?raw=true](https://user-images.githubusercontent.com/3786627/225915495-ffbd07ff-5c2e-433d-a683-87cd0cff96a2.gif)" height="250" />
+<img src="https://user-images.githubusercontent.com/3786627/225915495-ffbd07ff-5c2e-433d-a683-87cd0cff96a2.gif" height="250" />
 
 Customize the threshold of the swiper, when the card should slide away...
 
-<img src="[https://github.com/appinioGmbH/flutter_packages/blob/main/assets/swiper/treshold.gif?raw=true](https://user-images.githubusercontent.com/3786627/225915514-0c51c66a-a89e-4c41-bba0-b71093368bd6.gif)" height="250" />
+<img src="https://user-images.githubusercontent.com/3786627/225915514-0c51c66a-a89e-4c41-bba0-b71093368bd6.gif" height="250" />
 
 ## Installation
 
