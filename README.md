@@ -24,7 +24,9 @@ In this version we have replaced the list of cards with `cardsBuilder`. Now the 
 
 ## Show Cases
 
-<img src="https://github.com/appinioGmbH/flutter_packages/blob/main/assets/swiper/swiping.gif?raw=true" height="250" /> <img src="https://github.com/appinioGmbH/flutter_packages/blob/main/assets/swiper/swipe_button.gif?raw=true" height="250" />
+<img src="https://user-images.githubusercontent.com/3786627/225915128-c536043a-5ad2-440c-af36-5e95e2414f67.gif" height="250" />
+
+<img src="https://user-images.githubusercontent.com/3786627/225915143-188a4b56-18d5-4867-b2f0-8028a63ad6d6.gif" height="250" />
 
 Trigger swipe right and swipe left however you want...
 
