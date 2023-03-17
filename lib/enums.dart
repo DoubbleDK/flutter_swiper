@@ -1,12 +1,5 @@
-enum AppinioSwiperState {
-  swipe,
-  swipeLeft,
-  swipeRight,
-  unswipe,
-  swipeUp,
-  swipeDown
-}
+enum SwipeState { swipe, swipeLeft, swipeRight, unswipe, swipeUp, swipeDown }
 
-enum AppinioSwiperDirection { none, left, right, top, bottom }
+enum SwipeDirection { none, left, right, top, bottom }
 
-enum AppinioSwipeOptions { vertical, horizontal, allDirections }
+enum SwipeDirectionOptions { vertical, horizontal, allDirections }

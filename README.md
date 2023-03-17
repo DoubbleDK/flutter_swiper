@@ -1,4 +1,4 @@
-`appinio_swiper` is a Flutter package for a Tinder Card Swiper. ✨
+`swipe_deck` is a Flutter package for a Tinder Card Swiper. ✨
 
 It allows swiping in all directions with any Custom Widget (Stateless or Statefull).
 
@@ -21,7 +21,7 @@ We build this package because we wanted to:
 
 ### Trigger swipe up and swipe down through controller
 
-You can now trigger swipe up and swipe down with our `AppinioSwiperController` regardless of the chosen `AppinioSwipeDirection` (which is still used when `swipe` is called through the controller). Just like the swipeLeft and swipeRight call, you can call `swipeUp` or `swipeDown` through the controller anywhere you want.
+You can now trigger swipe up and swipe down with our `SwipeDeckController` regardless of the chosen `SwipeDirection` (which is still used when `swipe` is called through the controller). Just like the swipeLeft and swipeRight call, you can call `swipeUp` or `swipeDown` through the controller anywhere you want.
 
 ### Restrict horizontal or vertical swipe
 
@@ -66,7 +66,7 @@ flutter create MyApp
 Add
 
 ```yaml
-appinio_swiper: ...
+swipe_deck: ...
 ```
 
 to your `pubspec.yaml` of your flutter project.
@@ -74,7 +74,7 @@ to your `pubspec.yaml` of your flutter project.
 run
 
 ```yaml
-flutter pub add appinio_swiper
+flutter pub add swipe_deck
 ```
 
 in your project's root directory.
@@ -82,17 +82,17 @@ in your project's root directory.
 In your library add the following import:
 
 ```dart
-import 'package:appinio_swiper/appinio_swiper.dart';
+import 'package:swipe_deck/swipe_deck.dart';
 ```
 
 For help getting started with Flutter, view the online [documentation](https://flutter.io/).
 
 ## Usage
 
-You can place your `AppinioSwiper` inside of a `Scaffold` or `CupertinoPageScaffold` like we did here. Optional parameters can be defined to enable different features. See the following example..
+You can place your `SwipeDeck` inside of a `Scaffold` or `CupertinoPageScaffold` like we did here. Optional parameters can be defined to enable different features. See the following example..
 
 ```dart
-import 'package:appinio_swiper/appinio_swiper.dart';
+import 'package:swipe_deck/swipe_deck.dart';
 import 'package:flutter/cupertino.dart';
 
 class Example extends StatelessWidget {
@@ -102,14 +102,14 @@ class Example extends StatelessWidget {
     return CupertinoPageScaffold(
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.75,
-        child: AppinioSwiper(
+        child: SwipeDeck(
           cardsCount: 10,
           cardsBuilder: (BuildContext context,int index){
-              return Container(
-                          alignment: Alignment.center,
-                          child: const Text(index.toString()),
-                          color: CupertinoColors.activeBlue,
-                          );
+            return Container(
+              alignment: Alignment.center,
+              child: const Text(index.toString()),
+              color: CupertinoColors.activeBlue,
+            );
           },
         ),
       ),
@@ -126,7 +126,7 @@ class Example extends StatelessWidget {
 | --------------------- | :------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- | :------: |
 | cardsCount            | -                                                  | Number of cards you want to render                                                                                          |   true   |
 | cardsBuilder          | -                                                  | Callback of the type CardsBuilder                                                                                           |   true   |
-| swipeOptions          | -                                                  | value of type AppinioSwipeOptions to restrict swipes                                                                        |  false   |
+| swipeOptions          | -                                                  | value of type SwipeDirectionOptions to restrict swipes                                                                      |  false   |
 | controller            | -                                                  | Trigger unswipe                                                                                                             |  false   |
 | padding               | EdgeInsets.symmetric(horizontal: 20, vertical: 25) | Control swiper padding                                                                                                      |  false   |
 | duration              | 200 milliseconds                                   | The duration that every animation should last                                                                               |  false   |
@@ -147,7 +147,7 @@ class Example extends StatelessWidget {
 
 #### Controller
 
-The `Controller` is used to control the `swipe`, `swipeLeft`, `swipeRight`, `swipeUp`, `swipeDown` or `unswipe` function of the swiper from outside of the widget. You can create a controller called `AppinioSwiperController` and save the instance for further usage. Please have a closer look to our Example for the usage.
+The `Controller` is used to control the `swipe`, `swipeLeft`, `swipeRight`, `swipeUp`, `swipeDown` or `unswipe` function of the swiper from outside of the widget. You can create a controller called `SwipeDeckController` and save the instance for further usage. Please have a closer look to our Example for the usage.
 
 | Method     | Description                                                                                        |
 | ---------- | :------------------------------------------------------------------------------------------------- |
@@ -158,5 +158,7 @@ The `Controller` is used to control the `swipe`, `swipeLeft`, `swipeRight`, `swi
 | swipeDown  | Changes the state of the controller to swipe down and swipes the card to the down side.            |
 | unswipe    | Changes the state of the controller to unswipe and brings back the last card that was swiped away. |
 
-<hr/>
-Made with ❤ by Flutter team at <a href="https://appinio.com">Appinio GmbH</a>
+#### Credits
+
+- Mattias Fjellvang (package maintainer)
+- Appinio GmbH (original project creator)

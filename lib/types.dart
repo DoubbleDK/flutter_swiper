@@ -3,6 +3,6 @@ import 'enums.dart';
 
 typedef CardsBuilder = Widget Function(BuildContext context, int index);
 
-typedef OnSwipe = void Function(int index, AppinioSwiperDirection direction);
+typedef OnSwipe = void Function(int index, SwipeDirection direction);
 
 typedef OnUnSwipe = void Function(bool unswiped);

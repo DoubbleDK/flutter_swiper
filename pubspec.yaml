@@ -1,4 +1,4 @@
-name: swiper
+name: swipe_deck
 description: An awesome fully custamisable Tinder Card Swiper which allows swiping in all directions with any Custom Widget (Stateless or Statefull).
 version: 1.0.0
 homepage: https://github.com/DoubbleDK/swiper
