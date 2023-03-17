@@ -24,23 +24,24 @@ In this version we have replaced the list of cards with `cardsBuilder`. Now the 
 
 ## Show Cases
 
-<img src="https://github.com/appinioGmbH/flutter_packages/blob/main/assets/swiper/swiping.gif?raw=true" height="250" /> <img src="https://github.com/appinioGmbH/flutter_packages/blob/main/assets/swiper/swipe_button.gif?raw=true" height="250" />
+<img src="https://user-images.githubusercontent.com/3786627/225915128-c536043a-5ad2-440c-af36-5e95e2414f67.gif" height="250" /> <img src="https://user-images.githubusercontent.com/3786627/225915143-188a4b56-18d5-4867-b2f0-8028a63ad6d6.gif" height="250" />
 
 Trigger swipe right and swipe left however you want...
 
-<img src="https://github.com/appinioGmbH/flutter_packages/blob/main/assets/swiper/swipe_left_right.gif?raw=true" height="250" />
+<img src="https://user-images.githubusercontent.com/3786627/225915398-90688e8a-2277-437f-aef8-56d6a7a3a30b.gif" height="250" />
+
 
 Unswipe the cards however you want...
 
-<img src="https://github.com/appinioGmbH/flutter_packages/blob/main/assets/swiper/unswipe.gif?raw=true" height="250" />
+<img src="https://user-images.githubusercontent.com/3786627/225915487-b41d6258-0a2d-4da0-821c-0c62564413ab.gif" height="250" />
 
 Customize the angle...
 
-<img src="https://github.com/appinioGmbH/flutter_packages/blob/main/assets/swiper/angle.gif?raw=true" height="250" />
+<img src="https://user-images.githubusercontent.com/3786627/225915495-ffbd07ff-5c2e-433d-a683-87cd0cff96a2.gif" height="250" />
 
 Customize the threshold of the swiper, when the card should slide away...
 
-<img src="https://github.com/appinioGmbH/flutter_packages/blob/main/assets/swiper/treshold.gif?raw=true" height="250" />
+<img src="https://user-images.githubusercontent.com/3786627/225915514-0c51c66a-a89e-4c41-bba0-b71093368bd6.gif" height="250" />
 
 ## Installation
 
