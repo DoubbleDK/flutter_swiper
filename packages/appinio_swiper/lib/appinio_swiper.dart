@@ -57,7 +57,7 @@ class AppinioSwiper extends StatefulWidget {
   final VoidCallback? onEnd;
 
   /// function that gets called when the card is being dragged
-  final Function(double left, double top)? onDrag;
+  final Function(double x, double y)? onDrag;
 
   /// function that gets triggered when the swiper is disabled
   final VoidCallback? onTapDisabled;
@@ -72,8 +72,8 @@ class AppinioSwiper extends StatefulWidget {
   final Function(
     Widget child,
     AppinioSwiperDirection direction,
-    double left,
-    double top,
+    double x,
+    double y,
   )? foregroundItemWrapper;
 
   final Function(Widget child)? backgroundItemWrapper;
