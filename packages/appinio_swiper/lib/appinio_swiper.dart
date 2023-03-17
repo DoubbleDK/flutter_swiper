@@ -69,7 +69,13 @@ class AppinioSwiper extends StatefulWidget {
   final AppinioSwiperDirection direction;
 
   /// widget that gets wrapped around the card that is currently swiped
-  final Function(Widget child)? foregroundItemWrapper;
+  final Function(
+    Widget child,
+    AppinioSwiperDirection direction,
+    double left,
+    double top,
+  )? foregroundItemWrapper;
+
   final Function(Widget child)? backgroundItemWrapper;
 
   const AppinioSwiper({
@@ -408,7 +414,8 @@ class _AppinioSwiperState extends State<AppinioSwiper>
     );
 
     return widget.foregroundItemWrapper != null
-        ? widget.foregroundItemWrapper!(item)
+        ? widget.foregroundItemWrapper!(
+            item, _swipedDirection(_left, _top), _left, _top)
         : item;
   }
 
@@ -483,6 +490,26 @@ class _AppinioSwiperState extends State<AppinioSwiper>
     }
     (_top <= 0) ? _swipedDirectionVertical = 1 : _swipedDirectionVertical = -1;
     _horizontal = true;
+  }
+
+  AppinioSwiperDirection _swipedDirection(double left, double top) {
+    if (left == 0 && top == 0) return AppinioSwiperDirection.none;
+
+    if (left > 0 ||
+        left == 0 && widget.direction == AppinioSwiperDirection.right) {
+      return AppinioSwiperDirection.right;
+    } else if (left < -0 ||
+        left == 0 && widget.direction == AppinioSwiperDirection.left) {
+      return AppinioSwiperDirection.left;
+    } else if (top > 0 ||
+        top == 0 && widget.direction == AppinioSwiperDirection.bottom) {
+      return AppinioSwiperDirection.bottom;
+    } else if (top < -0 ||
+        top == 0 && widget.direction == AppinioSwiperDirection.top) {
+      return AppinioSwiperDirection.top;
+    }
+
+    return AppinioSwiperDirection.none;
   }
 
   //moves the card away to the top or bottom
