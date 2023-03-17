@@ -1,23 +1,10 @@
 `swipe_deck` is a Flutter package for a Tinder Card Swiper. ✨
 
-It allows swiping in all directions with any Custom Widget (Stateless or Statefull).
+It allows swiping in all directions with any widget as a card.
 
 Very smooth animations supporting Android, iOS & WebApp.
 
-## Why?
-
-We build this package because we wanted to:
-
-- have a complete customizable slider
-- be able to swipe in every direction
-- trigger unswipe however we want
-- choose our own settings for the swiper such as duration, angle, padding..
-- NEW: trigger swipe, swipe left/right or swipe up/down however we want
-- NEW: set swipe options and restrict horizontal or vertical swipe.
-- NEW: set loop for infinite scroll
-- NEW: update the list of cards between swipes.
-
-## ❗NEW Features ❗
+## Features
 
 ### Trigger swipe up and swipe down through controller
 
