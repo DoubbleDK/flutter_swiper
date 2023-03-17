@@ -57,7 +57,7 @@ class SwipeDeck extends StatefulWidget {
   final VoidCallback? onEnd;
 
   /// function that gets called when the card is being dragged
-  final Function(double x, double y)? onDrag;
+  final Function(SwipeDirection direction, double x, double y)? onDrag;
 
   /// function that gets triggered when the swiper is disabled
   final VoidCallback? onTapDisabled;
@@ -396,7 +396,7 @@ class _SwipeDeckState extends State<SwipeDeck>
               }
               _total = _left + _top;
 
-              widget.onDrag?.call(_left, _top);
+              widget.onDrag?.call(_swipedDirection(_left, _top), _left, _top);
               _calculateAngle();
               _calculateScale();
               _calculateDifference();
