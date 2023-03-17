@@ -1,7 +1,7 @@
 name: example
-description: Example for the Appinio Swiper
+description: Example for the Flutter Swiper
 
-publish_to: 'none'
+publish_to: "none"
 version: 0.0.1
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  appinio_swiper:
+  swiper:
     path: ../
 
 dev_dependencies:

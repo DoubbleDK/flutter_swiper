@@ -1,8 +1,8 @@
-name: appinio_swiper
+name: swiper
 description: An awesome fully custamisable Tinder Card Swiper which allows swiping in all directions with any Custom Widget (Stateless or Statefull).
-version: 2.0.0
-homepage: https://github.com/appinioGmbH/flutter_packages
-repository: https://github.com/appinioGmbH/flutter_packages/tree/main/packages/appinio_swiper
+version: 1.0.0
+homepage: https://github.com/DoubbleDK/swiper
+repository: https://github.com/DoubbleDK/swiper
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
