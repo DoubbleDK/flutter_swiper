@@ -30,7 +30,6 @@ Trigger swipe right and swipe left however you want...
 
 <img src="https://user-images.githubusercontent.com/3786627/225915398-90688e8a-2277-437f-aef8-56d6a7a3a30b.gif" height="250" />
 
-
 Unswipe the cards however you want...
 
 <img src="https://user-images.githubusercontent.com/3786627/225915487-b41d6258-0a2d-4da0-821c-0c62564413ab.gif" height="250" />
@@ -132,6 +131,7 @@ class Example extends StatelessWidget {
 | onDragEnd             | null                                               | A callback when dragging ends                                                                                               |  false   |
 | foregroundItemWrapper | null                                               | Wrap your foreground item: (child, direction, x, y), should return a Widget                                                 |  false   |
 | backgroundItemWrapper | null                                               | Wrap your background item: (child), should return a Widget                                                                  |  false   |
+| emptyCardsWidget      | null                                               | A widget to be shown when list contains no more cards                                                                       |  false   |
 
 #### Controller
 

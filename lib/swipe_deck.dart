@@ -14,6 +14,9 @@ class SwipeDeck extends StatefulWidget {
   /// widget builder for creating cards
   final CardsBuilder cardsBuilder;
 
+  /// widget builder for creating cards
+  final Widget? emptyCardsWidget;
+
   ///cards count
   final int cardsCount;
 
@@ -101,6 +104,7 @@ class SwipeDeck extends StatefulWidget {
     this.unswipe,
     this.foregroundItemWrapper,
     this.backgroundItemWrapper,
+    this.emptyCardsWidget,
   })  : assert(maxAngle >= 0 && maxAngle <= 360),
         assert(threshold >= 1 && threshold <= 100),
         assert(direction != SwipeDirection.none),
@@ -144,6 +148,17 @@ class _SwipeDeckState extends State<SwipeDeck>
 
   SwipeDirection detectedDirection = SwipeDirection.none;
 
+  int get _cardsCount =>
+      widget.cardsCount + (widget.emptyCardsWidget != null ? 1 : 0);
+
+  Widget _buildItem(BuildContext context, int index) {
+    if (widget.emptyCardsWidget != null && index >= _cardsCount - 1) {
+      return widget.emptyCardsWidget!;
+    }
+
+    return widget.cardsBuilder(context, index);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -154,7 +169,7 @@ class _SwipeDeckState extends State<SwipeDeck>
 
         //swipe widget from the outside
         if (widget.controller!.state == SwipeState.swipe) {
-          if (currentIndex < widget.cardsCount) {
+          if (currentIndex < _cardsCount) {
             switch (widget.direction) {
               case SwipeDirection.right:
                 _swipeHorizontal(context);
@@ -175,28 +190,28 @@ class _SwipeDeckState extends State<SwipeDeck>
           }
         } else if (widget.controller!.state == SwipeState.swipeLeft) {
           //swipe widget left from the outside
-          if (currentIndex < widget.cardsCount) {
+          if (currentIndex < _cardsCount) {
             _left = -1;
             _swipeHorizontal(context);
             _animationController.forward();
           }
         } else if (widget.controller!.state == SwipeState.swipeRight) {
           //swipe widget right from the outside
-          if (currentIndex < widget.cardsCount) {
+          if (currentIndex < _cardsCount) {
             _left = widget.threshold + 1;
             _swipeHorizontal(context);
             _animationController.forward();
           }
         } else if (widget.controller!.state == SwipeState.swipeUp) {
           //swipe widget up from the outside
-          if (currentIndex < widget.cardsCount) {
+          if (currentIndex < _cardsCount) {
             _top = -1;
             _swipeVertical(context);
             _animationController.forward();
           }
         } else if (widget.controller!.state == SwipeState.swipeDown) {
           //swipe widget down from the outside
-          if (currentIndex < widget.cardsCount) {
+          if (currentIndex < _cardsCount) {
             _top = widget.threshold + 1;
             _swipeVertical(context);
             _animationController.forward();
@@ -260,7 +275,7 @@ class _SwipeDeckState extends State<SwipeDeck>
             _swipedDirectionVertical = 0;
             _horizontal = false;
             if (widget.loop) {
-              if (currentIndex < widget.cardsCount - 1) {
+              if (currentIndex < _cardsCount - 1) {
                 currentIndex++;
               } else {
                 currentIndex = 0;
@@ -269,7 +284,7 @@ class _SwipeDeckState extends State<SwipeDeck>
               currentIndex++;
             }
             widget.onSwipe?.call(currentIndex, detectedDirection);
-            if (currentIndex == widget.cardsCount) {
+            if (currentIndex == _cardsCount) {
               widget.onEnd?.call();
             }
           } else if (_swipeType == 2) {
@@ -296,6 +311,7 @@ class _SwipeDeckState extends State<SwipeDeck>
 
   @override
   Widget build(BuildContext context) {
+    //TODO Remove this extra layout builder?
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Container(
@@ -306,10 +322,12 @@ class _SwipeDeckState extends State<SwipeDeck>
                   clipBehavior: Clip.none,
                   fit: StackFit.expand,
                   children: [
-                    if (widget.loop || currentIndex < widget.cardsCount - 1)
+                    if (widget.loop || currentIndex < _cardsCount - 1)
                       _backgroundItem(constraints),
-                    if (currentIndex < widget.cardsCount)
+                    if (currentIndex < _cardsCount)
                       _foregroundItem(constraints)
+                    else if (widget.emptyCardsWidget != null)
+                      widget.emptyCardsWidget!
                   ]);
             },
           ),
@@ -319,6 +337,8 @@ class _SwipeDeckState extends State<SwipeDeck>
   }
 
   Widget _backgroundItem(BoxConstraints constraints) {
+    final nextIndex = (currentIndex + 1) % _cardsCount;
+
     final item = Positioned(
       top: _difference,
       left: 0,
@@ -328,8 +348,7 @@ class _SwipeDeckState extends State<SwipeDeck>
           scale: _scale,
           child: Container(
             constraints: constraints,
-            child: widget.cardsBuilder(
-                context, (currentIndex + 1) % widget.cardsCount),
+            child: _buildItem(context, nextIndex),
           ),
         ),
       ),
@@ -349,7 +368,7 @@ class _SwipeDeckState extends State<SwipeDeck>
           angle: _angle,
           child: Container(
             constraints: constraints,
-            child: widget.cardsBuilder(context, currentIndex),
+            child: _buildItem(context, currentIndex),
           ),
         ),
         onTap: () {
@@ -567,7 +586,7 @@ class _SwipeDeckState extends State<SwipeDeck>
     _isUnswiping = true;
     if (widget.loop) {
       if (currentIndex == 0) {
-        currentIndex = widget.cardsCount - 1;
+        currentIndex = _cardsCount - 1;
       } else {
         currentIndex--;
       }
