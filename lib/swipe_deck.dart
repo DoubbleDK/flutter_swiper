@@ -148,11 +148,10 @@ class _SwipeDeckState extends State<SwipeDeck>
 
   SwipeDirection detectedDirection = SwipeDirection.none;
 
-  int get _cardsCount =>
-      widget.cardsCount + (widget.emptyCardsWidget != null ? 1 : 0);
+  int get _cardsCount => widget.cardsCount;
 
   Widget _buildItem(BuildContext context, int index) {
-    if (widget.emptyCardsWidget != null && index >= _cardsCount - 1) {
+    if (widget.emptyCardsWidget != null && index >= _cardsCount) {
       return widget.emptyCardsWidget!;
     }
 
