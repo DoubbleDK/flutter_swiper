@@ -149,88 +149,75 @@ class _SwipeDeckState extends State<SwipeDeck>
     super.initState();
 
     if (widget.controller != null) {
-      widget.controller!
+      widget.controller!.addListener(() {
+        if (widget.isDisabled) return;
+
         //swipe widget from the outside
-        ..addListener(() {
-          if (widget.controller!.state == SwipeState.swipe) {
-            if (currentIndex < widget.cardsCount) {
-              switch (widget.direction) {
-                case SwipeDirection.right:
-                  _swipeHorizontal(context);
-                  break;
-                case SwipeDirection.left:
-                  _swipeHorizontal(context);
-                  break;
-                case SwipeDirection.top:
-                  _swipeVertical(context);
-                  break;
-                case SwipeDirection.bottom:
-                  _swipeVertical(context);
-                  break;
-                case SwipeDirection.none:
-                  break;
-              }
-              _animationController.forward();
+        if (widget.controller!.state == SwipeState.swipe) {
+          if (currentIndex < widget.cardsCount) {
+            switch (widget.direction) {
+              case SwipeDirection.right:
+                _swipeHorizontal(context);
+                break;
+              case SwipeDirection.left:
+                _swipeHorizontal(context);
+                break;
+              case SwipeDirection.top:
+                _swipeVertical(context);
+                break;
+              case SwipeDirection.bottom:
+                _swipeVertical(context);
+                break;
+              case SwipeDirection.none:
+                break;
             }
+            _animationController.forward();
           }
-        })
-        //swipe widget left from the outside
-        ..addListener(() {
-          if (widget.controller!.state == SwipeState.swipeLeft) {
-            if (currentIndex < widget.cardsCount) {
-              _left = -1;
-              _swipeHorizontal(context);
-              _animationController.forward();
-            }
+        } else if (widget.controller!.state == SwipeState.swipeLeft) {
+          //swipe widget left from the outside
+          if (currentIndex < widget.cardsCount) {
+            _left = -1;
+            _swipeHorizontal(context);
+            _animationController.forward();
           }
-        })
-        //swipe widget right from the outside
-        ..addListener(() {
-          if (widget.controller!.state == SwipeState.swipeRight) {
-            if (currentIndex < widget.cardsCount) {
-              _left = widget.threshold + 1;
-              _swipeHorizontal(context);
-              _animationController.forward();
-            }
+        } else if (widget.controller!.state == SwipeState.swipeRight) {
+          //swipe widget right from the outside
+          if (currentIndex < widget.cardsCount) {
+            _left = widget.threshold + 1;
+            _swipeHorizontal(context);
+            _animationController.forward();
           }
-        })
-        //swipe widget up from the outside
-        ..addListener(() {
-          if (widget.controller!.state == SwipeState.swipeUp) {
-            if (currentIndex < widget.cardsCount) {
-              _top = -1;
-              _swipeVertical(context);
-              _animationController.forward();
-            }
+        } else if (widget.controller!.state == SwipeState.swipeUp) {
+          //swipe widget up from the outside
+          if (currentIndex < widget.cardsCount) {
+            _top = -1;
+            _swipeVertical(context);
+            _animationController.forward();
           }
-        })
-        //swipe widget down from the outside
-        ..addListener(() {
-          if (widget.controller!.state == SwipeState.swipeDown) {
-            if (currentIndex < widget.cardsCount) {
-              _top = widget.threshold + 1;
-              _swipeVertical(context);
-              _animationController.forward();
-            }
+        } else if (widget.controller!.state == SwipeState.swipeDown) {
+          //swipe widget down from the outside
+          if (currentIndex < widget.cardsCount) {
+            _top = widget.threshold + 1;
+            _swipeVertical(context);
+            _animationController.forward();
           }
-        })
-        //unswipe widget from the outside
-        ..addListener(() {
-          if (!widget.unlimitedUnswipe && _unSwiped) return;
-          if (widget.controller!.state == SwipeState.unswipe) {
-            if (widget.allowUnswipe) {
-              if (!_isUnswiping) {
-                if (currentIndex > 0) {
-                  _unswipe();
-                  widget.unswipe?.call(true);
-                  _animationController.forward();
-                } else {
-                  widget.unswipe?.call(false);
-                }
+        } else if (!widget.unlimitedUnswipe && _unSwiped) {
+          return;
+        } else if (widget.controller!.state == SwipeState.unswipe) {
+          //unswipe widget from the outside
+          if (widget.allowUnswipe) {
+            if (!_isUnswiping) {
+              if (currentIndex > 0) {
+                _unswipe();
+                widget.unswipe?.call(true);
+                _animationController.forward();
+              } else {
+                widget.unswipe?.call(false);
               }
             }
           }
-        });
+        }
+      });
     }
 
     if (widget.maxAngle > 0) {
