@@ -132,6 +132,8 @@ class Example extends StatelessWidget {
 | foregroundItemWrapper | null                                               | Wrap your foreground item: (child, direction, x, y), should return a Widget                                                 |  false   |
 | backgroundItemWrapper | null                                               | Wrap your background item: (child), should return a Widget                                                                  |  false   |
 | emptyCardsWidget      | null                                               | A widget to be shown when list contains no more cards                                                                       |  false   |
+| initialIndex          | 0                                                  | The initial card to show                                                                                                    |  false   |
+| initialSwipeMemo      | {}                                                 | A map of the initial swipe memo - used if initialIndex is above 0                                                           |  false   |
 
 #### Controller
 

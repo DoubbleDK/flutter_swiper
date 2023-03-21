@@ -71,6 +71,12 @@ class SwipeDeck extends StatefulWidget {
   /// direction in which the card gets swiped when triggered by controller, default set to right
   final SwipeDirection direction;
 
+  /// index to start on
+  final int initialIndex;
+
+  /// initial swipe memo
+  final Map<int, SwipeDirection> initialSwipeMemo;
+
   /// widget that gets wrapped around the card that is currently swiped
   final Function(
     Widget child,
@@ -105,6 +111,8 @@ class SwipeDeck extends StatefulWidget {
     this.foregroundItemWrapper,
     this.backgroundItemWrapper,
     this.emptyCardsWidget,
+    this.initialIndex = 0,
+    this.initialSwipeMemo = const {},
   })  : assert(maxAngle >= 0 && maxAngle <= 360),
         assert(threshold >= 1 && threshold <= 100),
         assert(direction != SwipeDirection.none),
@@ -123,7 +131,10 @@ class _SwipeDeckState extends State<SwipeDeck>
   double _maxAngle = 0;
   double _scale = 0.9;
   double _difference = 40;
-  int currentIndex = 0;
+  late int currentIndex;
+
+  // keeps track of the swiped items to unswipe from the same direction
+  late Map<int, SwipeDirection> _swiperMemo;
 
   int _swipeType = 0; // 1 = swipe, 2 = unswipe, 3 = goBack
   bool _tapOnTop = false; //position of starting drag point on card
@@ -135,8 +146,6 @@ class _SwipeDeckState extends State<SwipeDeck>
   late Animation<double> _differenceAnimation;
   late Animation<double> _unSwipeLeftAnimation;
   late Animation<double> _unSwipeTopAnimation;
-  final Map<int, SwipeDirection> _swiperMemo =
-      {}; //keep track of the swiped items to unswipe from the same direction
 
   bool _unSwiped =
       false; // set this to true when user swipe the card and false when they unswipe to make sure they unswipe only once
@@ -150,17 +159,13 @@ class _SwipeDeckState extends State<SwipeDeck>
 
   int get _cardsCount => widget.cardsCount;
 
-  Widget _buildItem(BuildContext context, int index) {
-    if (widget.emptyCardsWidget != null && index >= _cardsCount) {
-      return widget.emptyCardsWidget!;
-    }
-
-    return widget.cardsBuilder(context, index);
-  }
-
   @override
   void initState() {
     super.initState();
+
+    currentIndex = widget.initialIndex;
+
+    _swiperMemo = Map.from(widget.initialSwipeMemo);
 
     if (widget.controller != null) {
       widget.controller!.addListener(() {
@@ -306,6 +311,14 @@ class _SwipeDeckState extends State<SwipeDeck>
   void dispose() {
     super.dispose();
     _animationController.dispose();
+  }
+
+  Widget _buildItem(BuildContext context, int index) {
+    if (widget.emptyCardsWidget != null && index >= _cardsCount) {
+      return widget.emptyCardsWidget!;
+    }
+
+    return widget.cardsBuilder(context, index);
   }
 
   @override
@@ -595,54 +608,62 @@ class _SwipeDeckState extends State<SwipeDeck>
       }
     }
     _swipeType = 2;
-    //unSwipe horizontal
-    if (_swiperMemo[currentIndex] == SwipeDirection.right ||
-        _swiperMemo[currentIndex] == SwipeDirection.left) {
-      _unSwipeLeftAnimation = Tween<double>(
-        begin: (_swiperMemo[currentIndex] == SwipeDirection.right)
+
+    double? unSwipeLeftAnimationBeing;
+    double? unSwipeLeftAnimationEnd;
+    double? unSwipeTopAnimationBeing;
+    double? unSwipeTopAnimationEnd;
+    double scaleAnimationBeing = 1.0;
+    double scaleAnimationEnd = _scale;
+    double differenceAnimationBeing = 0;
+    double differenceAnimationEnd = _difference;
+
+    final SwipeDirection direction =
+        _swiperMemo[currentIndex] ?? SwipeDirection.top;
+    final swipedRight = direction == SwipeDirection.right;
+    final swipedTop = direction == SwipeDirection.top;
+
+    switch (direction) {
+      case SwipeDirection.right:
+      case SwipeDirection.left:
+        unSwipeLeftAnimationBeing = (swipedRight)
             ? MediaQuery.of(context).size.width
-            : -MediaQuery.of(context).size.width,
-        end: 0,
-      ).animate(_animationController);
-      _unSwipeTopAnimation = Tween<double>(
-        begin: (_swiperMemo[currentIndex] == SwipeDirection.top)
-            ? -MediaQuery.of(context).size.height / 4
-            : MediaQuery.of(context).size.height / 4,
-        end: 0,
-      ).animate(_animationController);
-      _scaleAnimation = Tween<double>(
-        begin: 1.0,
-        end: _scale,
-      ).animate(_animationController);
-      _differenceAnimation = Tween<double>(
-        begin: 0,
-        end: _difference,
-      ).animate(_animationController);
-    }
-    //unSwipe vertical
-    if (_swiperMemo[currentIndex] == SwipeDirection.top ||
-        _swiperMemo[currentIndex] == SwipeDirection.bottom) {
-      _unSwipeLeftAnimation = Tween<double>(
-        begin: (_swiperMemo[currentIndex] == SwipeDirection.right)
-            ? MediaQuery.of(context).size.width / 4
-            : -MediaQuery.of(context).size.width / 4,
-        end: 0,
-      ).animate(_animationController);
-      _unSwipeTopAnimation = Tween<double>(
-        begin: (_swiperMemo[currentIndex] == SwipeDirection.top)
+            : -MediaQuery.of(context).size.width;
+        unSwipeLeftAnimationEnd = 0;
+
+        unSwipeTopAnimationBeing = MediaQuery.of(context).size.height / 4;
+        unSwipeTopAnimationEnd = 0;
+        break;
+
+      case SwipeDirection.top:
+      case SwipeDirection.bottom:
+      default:
+        unSwipeLeftAnimationBeing = -MediaQuery.of(context).size.width / 4;
+        unSwipeLeftAnimationEnd = 0;
+
+        unSwipeTopAnimationBeing = (swipedTop)
             ? -MediaQuery.of(context).size.height
-            : MediaQuery.of(context).size.height,
-        end: 0,
-      ).animate(_animationController);
-      _scaleAnimation = Tween<double>(
-        begin: 1.0,
-        end: _scale,
-      ).animate(_animationController);
-      _differenceAnimation = Tween<double>(
-        begin: 0,
-        end: _difference,
-      ).animate(_animationController);
+            : MediaQuery.of(context).size.height;
+        unSwipeTopAnimationEnd = 0;
+        break;
     }
+
+    _unSwipeLeftAnimation = Tween<double>(
+      begin: unSwipeLeftAnimationBeing,
+      end: unSwipeLeftAnimationEnd,
+    ).animate(_animationController);
+    _unSwipeTopAnimation = Tween<double>(
+      begin: unSwipeTopAnimationBeing,
+      end: unSwipeTopAnimationEnd,
+    ).animate(_animationController);
+    _scaleAnimation = Tween<double>(
+      begin: scaleAnimationBeing,
+      end: scaleAnimationEnd,
+    ).animate(_animationController);
+    _differenceAnimation = Tween<double>(
+      begin: differenceAnimationBeing,
+      end: differenceAnimationEnd,
+    ).animate(_animationController);
 
     setState(() {});
   }
