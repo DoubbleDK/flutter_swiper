@@ -323,28 +323,24 @@ class _SwipeDeckState extends State<SwipeDeck>
 
   @override
   Widget build(BuildContext context) {
-    //TODO Remove this extra layout builder?
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return Container(
-          padding: widget.padding,
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return Stack(
-                  clipBehavior: Clip.none,
-                  fit: StackFit.expand,
-                  children: [
-                    if (widget.loop || currentIndex < _cardsCount - 1)
-                      _backgroundItem(constraints),
-                    if (currentIndex < _cardsCount)
-                      _foregroundItem(constraints)
-                    else if (widget.emptyCardsWidget != null)
-                      widget.emptyCardsWidget!
-                  ]);
-            },
-          ),
-        );
-      },
+    return Container(
+      padding: widget.padding,
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Stack(
+            clipBehavior: Clip.none,
+            fit: StackFit.expand,
+            children: [
+              if (widget.loop || currentIndex < _cardsCount - 1)
+                _backgroundItem(constraints),
+              if (currentIndex < _cardsCount)
+                _foregroundItem(constraints)
+              else if (widget.emptyCardsWidget != null)
+                widget.emptyCardsWidget!
+            ],
+          );
+        },
+      ),
     );
   }
 
