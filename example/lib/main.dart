@@ -46,7 +46,7 @@ class _ExamplePageState extends State<Example> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.75,
             child: SwipeDeck(
-              swipeOptions: SwipeDirectionOptions.vertical,
+              swipeDirections: SwipeDirections.vertical,
               unlimitedUnswipe: true,
               controller: controller,
               unswipe: _unswipe,

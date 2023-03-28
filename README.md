@@ -109,31 +109,32 @@ class Example extends StatelessWidget {
 
 #### Basic
 
-| Parameter             | Default                                            | Description                                                                                                                 | Required |
-| --------------------- | :------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- | :------: |
-| cardsCount            | -                                                  | Number of cards you want to render                                                                                          |   true   |
-| cardsBuilder          | -                                                  | Callback of the type CardsBuilder                                                                                           |   true   |
-| swipeOptions          | -                                                  | value of type SwipeDirectionOptions to restrict swipes                                                                      |  false   |
-| controller            | -                                                  | Trigger unswipe                                                                                                             |  false   |
-| padding               | EdgeInsets.symmetric(horizontal: 20, vertical: 25) | Control swiper padding                                                                                                      |  false   |
-| duration              | 200 milliseconds                                   | The duration that every animation should last                                                                               |  false   |
-| maxAngle              | 30                                                 | Maximum angle the card reaches while swiping                                                                                |  false   |
-| threshold             | 50                                                 | Threshold from which the card is swiped away                                                                                |  false   |
-| isDisabled            | false                                              | Set to `true` if swiping should be disabled, has no impact when triggered from the outside                                  |  false   |
-| onTapDisabled         | -                                                  | Function that get triggered when the swiper is disabled                                                                     |  false   |
-| onSwipe               | -                                                  | Called with the new index and detected swipe direction when the user swiped                                                 |  false   |
-| onEnd                 | -                                                  | Called when there is no Widget left to be swiped away                                                                       |  false   |
-| direction             | right                                              | Direction in which the card is swiped away when triggered from the outside                                                  |  false   |
-| allowUnswipe          | true                                               | Set to `false` if unswipe should be disabled away                                                                           |  false   |
-| unlimitedUnswipe      | false                                              | Set to `true` if the user can unswipe as many cards as possible                                                             |  false   |
-| unswipe               | -                                                  | Called with the boolean `true` when the last card gets unswiped and with the boolean `false` if there is no card to unswipe |  false   |
-| onDrag                | null                                               | A callback when dragging: (double x, double y)                                                                              |  false   |
-| onDragEnd             | null                                               | A callback when dragging ends                                                                                               |  false   |
-| foregroundItemWrapper | null                                               | Wrap your foreground item: (child, direction, x, y), should return a Widget                                                 |  false   |
-| backgroundItemWrapper | null                                               | Wrap your background item: (child), should return a Widget                                                                  |  false   |
-| emptyCardsWidget      | null                                               | A widget to be shown when list contains no more cards                                                                       |  false   |
-| initialIndex          | 0                                                  | The initial card to show                                                                                                    |  false   |
-| initialSwipeMemo      | {}                                                 | A map of the initial swipe memo - used if initialIndex is above 0                                                           |  false   |
+| Parameter                 | Default                                            | Description                                                                                                                 | Required |
+| ------------------------- | :------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- | :------: |
+| cardsCount                | -                                                  | Number of cards you want to render                                                                                          |   true   |
+| cardsBuilder              | -                                                  | Callback of the type CardsBuilder                                                                                           |   true   |
+| swipeDirections           | allDirections                                      | restrict swipe directions to vertical, horizontal, or allow all directions                                                  |  false   |
+| lockDragToSwipeDirections | false                                              | if set to true, card can only be dragged in value of swipeDirections                                                        |  false   |
+| controller                | -                                                  | Trigger unswipe                                                                                                             |  false   |
+| padding                   | EdgeInsets.symmetric(horizontal: 20, vertical: 25) | Control swiper padding                                                                                                      |  false   |
+| duration                  | 200 milliseconds                                   | The duration that every animation should last                                                                               |  false   |
+| maxAngle                  | 30                                                 | Maximum angle the card reaches while swiping                                                                                |  false   |
+| threshold                 | 50                                                 | Threshold from which the card is swiped away                                                                                |  false   |
+| isDisabled                | false                                              | Set to `true` if swiping should be disabled, has no impact when triggered from the outside                                  |  false   |
+| onTapDisabled             | -                                                  | Function that get triggered when the swiper is disabled                                                                     |  false   |
+| onSwipe                   | -                                                  | Called with the new index and detected swipe direction when the user swiped                                                 |  false   |
+| onEnd                     | -                                                  | Called when there is no Widget left to be swiped away                                                                       |  false   |
+| direction                 | right                                              | Direction in which the card is swiped away when triggered from the outside                                                  |  false   |
+| allowUnswipe              | true                                               | Set to `false` if unswipe should be disabled away                                                                           |  false   |
+| unlimitedUnswipe          | false                                              | Set to `true` if the user can unswipe as many cards as possible                                                             |  false   |
+| unswipe                   | -                                                  | Called with the boolean `true` when the last card gets unswiped and with the boolean `false` if there is no card to unswipe |  false   |
+| onDrag                    | null                                               | A callback when dragging: (double x, double y)                                                                              |  false   |
+| onDragEnd                 | null                                               | A callback when dragging ends                                                                                               |  false   |
+| foregroundItemWrapper     | null                                               | Wrap your foreground item: (child, direction, x, y), should return a Widget                                                 |  false   |
+| backgroundItemWrapper     | null                                               | Wrap your background item: (child), should return a Widget                                                                  |  false   |
+| emptyCardsWidget          | null                                               | A widget to be shown when list contains no more cards                                                                       |  false   |
+| initialIndex              | 0                                                  | The initial card to show                                                                                                    |  false   |
+| initialSwipeMemo          | {}                                                 | A map of the initial swipe memo - used if initialIndex is above 0                                                           |  false   |
 
 #### Controller
 

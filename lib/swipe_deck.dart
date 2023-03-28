@@ -33,7 +33,7 @@ class SwipeDeck extends StatefulWidget {
   final double maxAngle;
 
   /// set to true if verticalSwipe should be disabled, exception: triggered from the outside
-  final SwipeDirectionOptions swipeOptions;
+  final SwipeDirections swipeDirections;
 
   /// threshold from which the card is swiped away
   final int threshold;
@@ -77,6 +77,10 @@ class SwipeDeck extends StatefulWidget {
   /// initial swipe memo
   final Map<int, SwipeDirection> initialSwipeMemo;
 
+  /// set this to false, if you want to allow only the swipe directions that are set in swipeDirections
+  /// if set to true, the card can be dragged in any direction and will be swiped in the direction that is set in swipeDirections
+  final bool lockDragToSwipeDirections = false;
+
   /// widget that gets wrapped around the card that is currently swiped
   final Function(
     Widget child,
@@ -98,7 +102,7 @@ class SwipeDeck extends StatefulWidget {
     this.threshold = 50,
     this.isDisabled = false,
     this.loop = false,
-    this.swipeOptions = SwipeDirectionOptions.allDirections,
+    this.swipeDirections = SwipeDirections.allDirections,
     this.allowUnswipe = true,
     this.unlimitedUnswipe = false,
     this.onDragEnd,
@@ -395,17 +399,25 @@ class _SwipeDeckState extends State<SwipeDeck>
         onPanUpdate: (tapInfo) {
           if (!widget.isDisabled) {
             setState(() {
-              final swipeOption = widget.swipeOptions;
+              final swipeOption = widget.swipeDirections;
               switch (swipeOption) {
-                case SwipeDirectionOptions.allDirections:
+                case SwipeDirections.allDirections:
                   _left += tapInfo.delta.dx;
                   _top += tapInfo.delta.dy;
                   break;
-                case SwipeDirectionOptions.horizontal:
+                case SwipeDirections.horizontal:
                   _left += tapInfo.delta.dx;
+
+                  if (!widget.lockDragToSwipeDirections) {
+                    _top += tapInfo.delta.dy;
+                  }
                   break;
-                case SwipeDirectionOptions.vertical:
+                case SwipeDirections.vertical:
                   _top += tapInfo.delta.dy;
+
+                  if (!widget.lockDragToSwipeDirections) {
+                    _left += tapInfo.delta.dx;
+                  }
                   break;
               }
               _total = _left + _top;
