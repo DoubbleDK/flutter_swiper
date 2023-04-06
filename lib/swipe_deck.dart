@@ -79,7 +79,7 @@ class SwipeDeck extends StatefulWidget {
 
   /// set this to false, if you want to allow only the swipe directions that are set in swipeDirections
   /// if set to true, the card can be dragged in any direction and will be swiped in the direction that is set in swipeDirections
-  final bool lockDragToSwipeDirections = false;
+  final bool lockDragToSwipeDirections;
 
   /// widget that gets wrapped around the card that is currently swiped
   final Function(
@@ -117,6 +117,7 @@ class SwipeDeck extends StatefulWidget {
     this.emptyCardsWidget,
     this.initialIndex = 0,
     this.initialSwipeMemo = const {},
+    this.lockDragToSwipeDirections = false,
   })  : assert(maxAngle >= 0 && maxAngle <= 360),
         assert(threshold >= 1 && threshold <= 100),
         assert(direction != SwipeDirection.none),
