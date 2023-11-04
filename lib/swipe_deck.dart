@@ -174,7 +174,7 @@ class _SwipeDeckState extends State<SwipeDeck>
   }
 
   _swipeListener() {
-    if (widget.isDisabled) return;
+    if (widget.isDisabled || !mounted) return;
 
     //swipe widget from the outside
     if (widget.controller!.state == SwipeState.swipe) {
