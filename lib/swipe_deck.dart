@@ -165,6 +165,15 @@ class _SwipeDeckState extends State<SwipeDeck>
   int get _cardsCount => widget.cardsCount;
 
   @override
+  void didUpdateWidget(SwipeDeck oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.cardsCount != oldWidget.cardsCount) {
+      currentIndex = widget.initialIndex;
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
 
