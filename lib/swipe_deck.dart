@@ -171,6 +171,14 @@ class _SwipeDeckState extends State<SwipeDeck>
     if (widget.cardsCount != oldWidget.cardsCount) {
       currentIndex = widget.initialIndex;
     }
+
+    if (widget.initialIndex != oldWidget.initialIndex) {
+      currentIndex = widget.initialIndex;
+    }
+
+    if (widget.initialSwipeMemo != oldWidget.initialSwipeMemo) {
+      _swiperMemo = Map.from(widget.initialSwipeMemo);
+    }
   }
 
   _swipeListener() {
