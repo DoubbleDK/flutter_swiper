@@ -38,8 +38,11 @@ class SwipeDeck extends StatefulWidget {
   /// threshold from which the card is swiped away
   final int threshold;
 
-  /// set to true if swiping should be disabled, exception: triggered from the outside
+  /// set to true if swiping should be disabled, including from controller
   final bool isDisabled;
+
+  /// set to true if only swiping should be disabled
+  final bool swipeDisabled;
 
   /// set to false if unswipe should be disabled
   final bool allowUnswipe;
@@ -101,6 +104,7 @@ class SwipeDeck extends StatefulWidget {
     this.maxAngle = 30,
     this.threshold = 50,
     this.isDisabled = false,
+    this.swipeDisabled = false,
     this.loop = false,
     this.swipeDirections = SwipeDirections.allDirections,
     this.allowUnswipe = true,
@@ -413,7 +417,7 @@ class _SwipeDeckState extends State<SwipeDeck>
           }
         },
         onPanStart: (tapInfo) {
-          if (!widget.isDisabled) {
+          if (!widget.isDisabled && !widget.swipeDisabled) {
             RenderBox renderBox = context.findRenderObject() as RenderBox;
             Offset position = renderBox.globalToLocal(tapInfo.globalPosition);
 
@@ -421,7 +425,7 @@ class _SwipeDeckState extends State<SwipeDeck>
           }
         },
         onPanUpdate: (tapInfo) {
-          if (!widget.isDisabled) {
+          if (!widget.isDisabled && !widget.swipeDisabled) {
             setState(() {
               final swipeOption = widget.swipeDirections;
               switch (swipeOption) {
@@ -454,7 +458,7 @@ class _SwipeDeckState extends State<SwipeDeck>
           }
         },
         onPanEnd: (tapInfo) {
-          if (!widget.isDisabled) {
+          if (!widget.isDisabled && !widget.swipeDisabled) {
             _tapOnTop = false;
             _onEndAnimation();
             _animationController.forward();
